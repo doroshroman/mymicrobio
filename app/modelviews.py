@@ -15,7 +15,7 @@ class MyAdminIndexView(AdminIndexView):
     
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
-        req = re.findall(r'[0-9]+(.+)', request.url)[0]
+        req = re.findall(r'(/\w+/.*)', request.url)[0]
         return redirect(url_for('auth.login', next=req))
     
 
