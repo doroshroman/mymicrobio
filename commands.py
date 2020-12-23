@@ -19,10 +19,12 @@ def create_tables():
 @click.command(name='create_admin')
 @with_appcontext
 def create_admin():
-    username = 'superadmin'
-    email = 'superadmin@gmail.com'
+    username = 'superadmin1'
+    email = 'superadmin1@gmail.com'
+    password = 'admin1'
     is_admin = True
     admin = User(username=username, email=email, admin=is_admin)
+    admin.set_password(password)
     db.session.add(admin)
     db.session.commit()
     click.echo('Admin has been created')
