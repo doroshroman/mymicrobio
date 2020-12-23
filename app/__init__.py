@@ -8,7 +8,7 @@ from flask_ckeditor import CKEditor
 
 db = SQLAlchemy()
 
-def create_app(app):
+def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
