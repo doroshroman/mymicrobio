@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if title %}
+    {{title}} - Blog
+    {% else %}
+    Blog
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <br>
+    <div class="container d-flex flex-column align-items-center">
+    <form action="{{ url_for('posts.posts') }}" class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+            <input type="text" class="form-control" name="q" value="{%if query%}{{query}}{% else %}Python{% endif %}">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Search</button>
+    </form>
+    </div>
+    <br>
+    <div class="container d-flex flex-column align-items-center">
+    {% for post in pages.items %}
+    <div class="card" style="width: 48rem;">
+        <div class="card-body" >
+          <h5 class="card-title text-right">{{post.author.username}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted text-right">{{post.timestamp}}</h6>
+          <h5 class="card-title"><a href="{{ url_for('posts.get_post', post_id=post.id) }}">{{post.title}}</a></h5>
+          <p class="card-text">{{post.body}}</p>
+          <p class="card-text"><small class="text-muted">Last updated at {{post.timestamp}} </small></p>
+          {% if current_user == post.author %}
+                <button class="btn btn-outline-success"><a id="update-link" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</button></a>
+                <button id="button-delete" data-toggle="modal" data-target="#delete-modal" class="btn btn-outline-danger float-right">Delete</button>
+          {% endif %}
+        </div>
+    </div>
+    <br>
+    <!-- Modal -->
+    <div class="container col d-flex justify-content-center">
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Do you really want to delete post?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger"><a id="delete-link" href="{{url_for('posts.delete_post', post_id=post.id) }}">Delete</a></button>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    
+    {% endfor %}
+    </div>
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if not pages.has_prev %} disabled {% endif %}">
+                <a class="page-link" href="{{ url_for('posts.posts', page=pages.prev_num) }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a> 
+            </li>
+            {% for page in pages.iter_pages() %}
+                <li class="page-item {% if page == pages.page %} active {% endif %}">
+                    <a class="page-link" href="{{ url_for('posts.posts', page=page) }}">{{ page }}<span class="sr-only">(current)</span></a>   
+                </li>
+            {% endfor %}
+            <li class="page-item {% if not pages.has_next %} disabled {% endif %}">
+                <a class="page-link" href="{{ url_for('posts.posts', page=pages.next_num) }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a> 
+            </li>
+        </ul>
+    </nav>
+    <script type="text/javascript">
+        $('#delete-modal').on('shown.bs.modal');
+    </script>
+    
+{% endblock %}

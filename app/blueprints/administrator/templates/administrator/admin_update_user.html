@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Admin Update User{% endblock %}
+{% from "_render_field.html" import render_field %}
+
+{% block content %}
+    <br><p class="h2">Update User {{ user.username }}</p><hr></br>
+    <form action="{{ url_for('administrator.user_update_admin', user_id=user.id) }}" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="md-form form-group w-50">
+            {{ render_field(form.username, placeholder=form.username.label.text)}}
+            {{ render_field(form.email) }}
+            <div class="form-group">
+                {{ form.admin.label }}
+                {{ form.admin}}
+             </div>
+            {{ form.submit(class_="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock %}
+

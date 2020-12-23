@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% from "_render_field.html" import render_field %}
+{% block title %}Update {{post.title}} {% endblock %}
+{% block content %}
+    <br>
+    <form method="POST" action="{{url_for('posts.update_post', post_id=post.id)}}">
+        {{ form.hidden_tag() }}
+        <p class="h4">Update Post</p>
+        <hr>
+        <div class="md-form form-group w-50">
+            {{ render_field(form.title) }}
+            {{ render_field(form.body) }}
+            {{ form.submit(class_="btn btn-primary") }}
+        </div>  
+    </form>
+{% endblock %}

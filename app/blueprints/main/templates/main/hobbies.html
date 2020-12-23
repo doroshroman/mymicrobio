@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}My Bio{% endblock %}
+{% block content %}
+    <p><a href="{{ url_for('main.show_main_page') }}">Back to main page</a></p>
+    <h1>List of my hobbies</h1>
+    <ul>
+        <div>
+        <p><li>Music</li></p>
+        <div><img class="img-border" id="music-img" src="{{ url_for('static', filename='images/meloman.jpg') }}"></div>
+        </div>
+        <div>
+            <p><li>Programming</li></p>
+            <div><img class="img-border" id="coding-img" src="{{ url_for('static', filename='images/programming.jpg') }}"></div>
+        </div>
+    </ul>
+{% endblock %}

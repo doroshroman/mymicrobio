@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<br><p class="h2">Sign In</p><hr><br>
+
+<p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
+
+{% from "_render_field.html" import render_field %}
+
+<form method="POST" action="{{url_for('auth.login', next=request.args.get('next'))}}">
+    {{ form.hidden_tag() }}
+    <div class="md-form form-group w-25">
+        {{ render_field(form.email) }}
+        {{ render_field(form.password) }}
+        <div class="form-check">
+            {{ form.remember(class_="form-check-input") }}
+            {{ form.remember.label(class_="form-check-label") }}
+        </div>
+        <br>
+        {{ form.submit(class_="btn btn-primary") }}
+    </div>  
+</form>
+
+{% endblock %}
+ 
+
+

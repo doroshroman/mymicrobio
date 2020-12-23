@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}My Bio{% endblock %}
+{% block content %}
+    <p><a href="{{ url_for('main.show_main_page') }}">Back to main page</a></p>
+    <h1>My biography</h1>
+    <ol id="timeline">
+        <p><li>2000 - I was born.</li></p>
+        <p><li>2006 - I went to school.</li></p>
+        <p><li>2014 - Changed school to PHTL.</li></p>
+        <p><li>2017 - Entered the PNU.</li></p>
+    </ol>
+    
+{% endblock %}

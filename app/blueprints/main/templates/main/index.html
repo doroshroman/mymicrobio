@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Roman Dorosh{% endblock %}
+{% block content %}
+    <div><h1>Welcome to my page!</h1></div>
+    
+    <div class="blocks"><img class="img-border" id="my_photo" src="{{ url_for('static', filename='/images/praha.jpg') }}"></div>
+    <div class="blocks">
+        <h3><b>20 y.o. software engeneering student from Ivano-Frankivsk<b></h3>
+    </div>
+    <div class="blocks">
+        <div id="bio-link"><a href="{{ url_for('main.show_bio') }}">Bio</a></div>
+        <div><a href="{{ url_for('main.show_hobbies') }}">Hobbies</a></div>
+    </div>
+{% endblock %}
